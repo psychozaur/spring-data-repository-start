@@ -1,8 +1,12 @@
 package workshop.spring5.persistence.springdata.dao;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import workshop.spring5.persistence.springdata.config.MainConfig;
 import workshop.spring5.persistence.springdata.model.Author;
 import workshop.spring5.persistence.springdata.model.Book;
 
@@ -19,6 +23,8 @@ import static org.junit.Assert.assertNotNull;
     TODO 8 dodaj do klasy adnotacje @RunWith i @ContextConfiguration
     Dodaj do metod testowych (metod z adnotacją @Test) adnotację @DirtiesContext
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = MainConfig.class)
 public class BookServiceImplTest {
     /*
         TODO 9 Wstrzyknij repozytorium
@@ -31,8 +37,14 @@ public class BookServiceImplTest {
      */
     @Test
     @DirtiesContext
-    public void shouldSaveAbook() {
-        fail();
+    public void shouldSaveABook() {
+        // Given
+        int booksInDb = (int) bookRepository.count();
+        Book book = createBookWithAuthor(booksInDb + 1);
+        // When
+        bookRepository.save(book);
+        // Then
+        assertEquals(1L, bookRepository.count());
     }
 
     /*
@@ -40,7 +52,7 @@ public class BookServiceImplTest {
     */
     @Test
     @DirtiesContext
-    public void shouldNotFindAbook() {
+    public void shouldNotFindABook() {
         fail();
     }
 
