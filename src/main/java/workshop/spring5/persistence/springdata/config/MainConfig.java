@@ -90,6 +90,7 @@ public class MainConfig {
         LocalContainerEntityManagerFactoryBean lcemfb = new LocalContainerEntityManagerFactoryBean();
         lcemfb.setDataSource(dataSource());
         lcemfb.setJpaVendorAdapter(jpaVendorAdapter());
+        lcemfb.setPackagesToScan("workshop.spring5.persistence.springdata.model");
         return lcemfb;
     }
 

@@ -12,17 +12,19 @@ import java.util.List;
     Interfejs rozszerza org.springframework.data.repository.CrudRepository
     <T, ID> : typ encji, typ klucza w encji
  */
-@Repository
 public interface BookRepository extends CrudRepository<Book, Long> {
     /*
         TODO 14 zadeklaruj metodę List<Book> selectAllBooksUsingQueryFromEntity()
         Użyj adnotacji @Query -  wykorzystaj definicję z encji
     */
-
+    @Query
+    public List<Book> selectAllBooksUsingQueryFromEntity();
 
     /*
         TODO 15 zadeklaruj metodę List<Book> selectAllBooksUsingQueryFromRepository()
         Użyj adnotacji @Query(value=("..."))
     */
+    @Query
+    public List<Book> selectAllBooksUsingQueryFromRepository();
 
 }
