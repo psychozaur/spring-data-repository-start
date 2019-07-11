@@ -8,6 +8,7 @@ import java.util.Objects;
 /*
     TODO 13 zaimplementuj @NamedNativeQuery - pobranie wszystkich rekordów
  */
+@NamedNativeQuery(name = "getAllBooks", query = "SELECT * FROM book", resultClass = Book.class)
 public class Book {
     @Id
     @Column(name = "book_id")

@@ -51,7 +51,7 @@ public class MainConfig {
      */
 
     @Bean
-    public JpaTransactionManager jpaTransactionManager(EntityManagerFactory entityManagerFactory){
+    public JpaTransactionManager transactionManager(EntityManagerFactory entityManagerFactory){
         return new JpaTransactionManager(entityManagerFactory);
     }
 
@@ -86,12 +86,12 @@ public class MainConfig {
     */
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean(){
-        LocalContainerEntityManagerFactoryBean lcemfb = new LocalContainerEntityManagerFactoryBean();
-        lcemfb.setDataSource(dataSource());
-        lcemfb.setJpaVendorAdapter(jpaVendorAdapter());
-        lcemfb.setPackagesToScan("workshop.spring5.persistence.springdata.model");
-        return lcemfb;
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(){
+        LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
+        emf.setDataSource(dataSource());
+        emf.setJpaVendorAdapter(jpaVendorAdapter());
+        emf.setPackagesToScan("workshop.spring5.persistence.springdata.model");
+        return emf;
     }
 
 }

@@ -15,9 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static junit.framework.TestCase.fail;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 /*
     TODO 8 dodaj do klasy adnotacje @RunWith i @ContextConfiguration
@@ -53,7 +51,15 @@ public class BookServiceImplTest {
     @Test
     @DirtiesContext
     public void shouldNotFindABook() {
-        fail();
+        // Given
+        long nonExistingId = 24364325345L;
+        int booksInDb = (int) bookRepository.count();
+        Book book = createBookWithAuthor(booksInDb + 1);
+        long savedId = bookRepository.save(book).getId();
+        // When
+        boolean isExisting = bookRepository.existsById(nonExistingId);
+        // Then
+        assertFalse(isExisting);
     }
 
     /*
@@ -62,7 +68,14 @@ public class BookServiceImplTest {
     @Test
     @DirtiesContext
     public void deleteById() {
-        fail();
+        // Given
+        int booksInDb = (int) bookRepository.count();
+        Book book = createBookWithAuthor(booksInDb + 1);
+        long savedId = bookRepository.save(book).getId();
+        // When
+        bookRepository.deleteById(savedId);
+        // Then
+        assertFalse(bookRepository.existsById(savedId));
     }
 
     /*
@@ -71,7 +84,14 @@ public class BookServiceImplTest {
     @Test
     @DirtiesContext
     public void shouldFindAllUsingQueryFromRepository() {
-        fail();
+        // Given
+        int booksInDb = (int) bookRepository.count();
+        Book book = createBookWithAuthor(booksInDb + 1);
+        long savedId = bookRepository.save(book).getId();
+        // When
+        List<Book> result = bookRepository.selectAllBooksUsingQueryFromRepository();
+        // Then
+        assertEquals(bookRepository.findById(savedId).orElse(new Book()).getTitle(), result.get(0).getTitle());
     }
 
     /*
@@ -80,7 +100,14 @@ public class BookServiceImplTest {
     @Test
     @DirtiesContext
     public void selectAllBooksUsingQueryFromEntity() {
-        fail();
+        // Given
+        int booksInDb = (int) bookRepository.count();
+        Book book = createBookWithAuthor(booksInDb + 1);
+        long savedId = bookRepository.save(book).getId();
+        // When
+        List<Book> result = bookRepository.selectAllBooksUsingQueryFromEntity();
+        // Then
+        assertEquals(bookRepository.findById(savedId).orElse(new Book()).getTitle(), result.get(0).getTitle());
     }
 
     //=========================================================    Helper methods

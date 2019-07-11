@@ -17,14 +17,14 @@ public interface BookRepository extends CrudRepository<Book, Long> {
         TODO 14 zadeklaruj metodę List<Book> selectAllBooksUsingQueryFromEntity()
         Użyj adnotacji @Query -  wykorzystaj definicję z encji
     */
-    @Query
+    @Query(name = "getAllBooks")
     public List<Book> selectAllBooksUsingQueryFromEntity();
 
     /*
         TODO 15 zadeklaruj metodę List<Book> selectAllBooksUsingQueryFromRepository()
         Użyj adnotacji @Query(value=("..."))
     */
-    @Query
+    @Query("SELECT b FROM Book b")
     public List<Book> selectAllBooksUsingQueryFromRepository();
 
 }
