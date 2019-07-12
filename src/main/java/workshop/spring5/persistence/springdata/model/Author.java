@@ -6,6 +6,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name="author")
+@NamedNativeQuery(name = "getAllAuthors", query = "SELECT * FROM author", resultClass = Author.class)
 public class Author {
     @Id
     @Column(name = "author_id")

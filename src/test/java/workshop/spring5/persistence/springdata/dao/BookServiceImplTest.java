@@ -2,6 +2,8 @@ package workshop.spring5.persistence.springdata.dao;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -24,6 +26,9 @@ import static org.junit.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = MainConfig.class)
 public class BookServiceImplTest {
+
+    private static final Logger logger = LoggerFactory.getLogger(BookServiceImplTest.class);
+
     /*
         TODO 9 Wstrzyknij repozytorium
      */
@@ -33,6 +38,22 @@ public class BookServiceImplTest {
     /*
         TODO 10 zaimplementuj test
      */
+    @Test
+    @DirtiesContext
+    public void shouldSaveAListOfBooks() {
+        // Given
+        int booksToCreate = 5;
+        List<Book> books = createBooksWithAuthor(booksToCreate);
+        // When
+        bookRepository.saveAll(books);
+        List<Book> result = convertIterableToList(bookRepository.findAll());
+        // Then
+        for (Book book : result){
+            logger.info(book.getTitle());
+        }
+        assertEquals(booksToCreate, bookRepository.count());
+    }
+
     @Test
     @DirtiesContext
     public void shouldSaveABook() {
